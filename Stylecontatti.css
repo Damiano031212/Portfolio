@@ -1,0 +1,301 @@
+@font-face {
+  font-family: "HelveticaDisplay";
+  src: url("../Font/Helvetica_Display_regular.woff") format("woff"),
+       url("../Font/Helvetica_Display_regular2.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HelveticaDisplay";
+  src: url("../Font/Helvetica_Display.woff") format("woff"),
+       url("../Font/Helvetica_Display2.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+html,body {
+    height: 100vh;
+    cursor: none;
+    background-color: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;   /* WebKit */
+}
+/* Nasconde il puntatore nativo anche su elementi interattivi (es. link e bottoni) */
+a, a:link, a:visited, a:hover, a:active,
+button, input, textarea, select, label {
+    cursor: none !important;
+}
+
+#container {
+    position: fixed;
+    mix-blend-mode: difference;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+/* Cursore personalizzato */
+.cursor {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%) scale(1);
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+    z-index: 9999;
+}
+
+strong{
+    font-family: "roboto", sans-serif;
+    font-weight: 600;
+}
+
+.Nav_text {
+    font-family: "Helvetica Now Display", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.5;                           /* 🔹 Opacità iniziale */
+    transition: opacity 0.3s ease, 
+                transform 0.3s ease;        /* 🔹 Aggiunta transizione per il movimento */
+    transform: scale(1);                    /* 🔹 Stato base */
+}
+
+.Nav_text:hover {
+    opacity: 1;                             /* 🔹 Opacità completa */
+    transform: scale(1.25);                 /* 🔹 Leggero ingrandimento */
+     filter: brightness(1.2);
+}
+
+
+#Actual_page {
+    opacity: 1;                       /* 🔹 Opacità al passaggio del mouse */
+    filter: brightness(1.2);
+}
+
+.Navigation{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: auto;
+    height: 100px;
+    padding-left: 63px;
+    padding-right: 54px;
+    z-index: 1;
+}
+.Nav_link {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 84px;
+}
+.Nav_text {
+    font-family: "Helvetica Now Display", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.Insta{
+    height: 44px;
+    width: 42.620323181152344px;
+    background: url(insta.svg) no-repeat center;
+    background-size: contain;
+    filter: invert(100%) brightness(200%);
+}
+.Gmail{
+    height: 44px;
+    width: 42.620323181152344px;
+    background: url(gmail.svg) no-repeat center;
+    background-size: contain;
+    filter: invert(100%) brightness(200%);
+}
+.father_insta{
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+}
+.father_gmail{
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 24px;
+}
+.Social{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+    height: fit-content;
+    gap: 8px;
+}
+
+.info{
+    font-family: "roboto", sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.Paragraph{
+    width: 660px;
+    font-family: "roboto", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    letter-spacing: 0%;
+    color: #ffffff;
+}
+.container_contact{
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 1;
+    margin-left: 54px;
+    margin-right: 54px;
+    margin-bottom: 100px;
+}
+.Tittle{
+    width: 617px;
+    margin: 0;
+    font-family: "Helvetica Now Display", sans-serif;
+    font-weight: 700;
+    font-size: 88px;
+    color: #ffffff;
+    line-height: 97px;
+    letter-spacing: 2.2%;
+}
+.contatta{
+    border: none;
+    background: none;
+    font-family: "roboto", sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    color: #ffffff;
+    text-decoration-line: underline;
+    padding: 0 ;
+    z-index: 10;
+}
+.linkedin{
+    height: 44px;
+    width: 42.620323181152344px;
+    background: url(linkedin-svgrepo-com.svg) no-repeat center;
+    background-size: contain;
+    filter: invert(100%) brightness(200%);
+}
+
+.home-icon {
+    width: 28px;
+    height: 28px;
+    background: url('home+identity_no_fill.svg') no-repeat center;
+    background-size: contain;
+}
+
+.work-icon {
+    width: 28px;
+    height: 28px;
+    background: url('work+identity_no_fill.svg') no-repeat center;
+    background-size: contain;
+}
+
+.contatti-icon {
+    width: 28px;
+    height: 28px;
+    background: url('send+identity_fill.svg') no-repeat center;
+    background-size: contain;
+}
+
+.about-icon {
+    width: 28px;
+    height: 28px;
+    background: url('about+identity_no_fill.svg') no-repeat center;
+    background-size: contain;
+}
+
+.Nav_link a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+}
+
+.nav-label {
+    font-family: "Helvetica Now Display", sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 100%;
+    white-space: nowrap;
+}
+
+.Nav_link a:hover .nav-label {
+    opacity: 1;
+}
+
+/* TENDINA DI TRANSIZIONE */
+.page-shutter {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  pointer-events: none;
+  z-index: 10000; /* sopra contenuti ma sotto cursor (9999 -> se vuoi che cursor resti sopra, usa 10001) */
+  mix-blend-mode: difference; /* stesso comportamento di contrasto del cursore */
+
+  /* STATO INIZIALE (Nascosto in alto) */
+  transform: translateY(-100%);
+  
+  /* LA MAGIA: 1s durata, curva ease-in-out */
+  transition: transform 1s ease-in-out;
+  
+  /* Ottimizzazione per evitare scatti (rendering su GPU) */
+  will-change: transform;
+  pointer-events: none; /* Lascia cliccare sotto quando è su */
+}
+
+
+/* override: quando aggiungo .down (discesa) uso una transizione più corta per essere più reattiva */
+.page-shutter.down {
+    transform: translateY(0%); /* Copre lo schermo */
+    pointer-events: all; /* Blocca i click mentre copre */
+    
+  transition: transform 1s ease-in-out;
+}
+
+/* classe reveal non strettamente necessaria (riferimento) */
+.page-shutter.reveal {
+  transform: translateY(-100%);
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading</title>
+    
+    <link rel="icon" type="image/svg+xml" href="marchio.svg" sizes="any">
+    <link rel="stylesheet" href="styleloading.css">
+</head>
+
+<body class="LoadingPage">
+
+    <div id="container"></div>
+
+    <!-- Video usato come texture -->
+    <video id="videoSfondo" loop muted playsinline crossorigin="anonymous" style="display:none">
+        <source src="videos/sfondo.mp4" type="video/mp4">
+    </video>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="loading.js"></script>
+
+</body>
+</html>

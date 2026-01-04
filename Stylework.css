@@ -1,0 +1,520 @@
+@font-face {
+  font-family: "HelveticaDisplay";
+  src: url("../Font/Helvetica_Display_regular.woff") format("woff"),
+       url("../Font/Helvetica_Display_regular2.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HelveticaDisplay";
+  src: url("../Font/Helvetica_Display.woff") format("woff"),
+       url("../Font/Helvetica_Display2.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+#container {
+    left: 41%;
+    bottom: 200px;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+a{
+    text-decoration: none;
+    text-underline-offset: none;
+}
+html,body {
+    height: 100vh;
+    cursor: none;
+    background-color: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;   /* WebKit */
+}
+/* Nasconde il puntatore nativo anche su elementi interattivi (es. link e bottoni) */
+a, a:link, a:visited, a:hover, a:active,
+button, input, textarea, select, label {
+    cursor: none !important;
+}
+
+/* Cursore personalizzato */
+.cursor {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%) scale(1);
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+    z-index: 10001;
+}
+
+strong{
+    font-family: "roboto", sans-serif;
+    font-weight: 600;
+}
+
+/* TENDINA DI TRANSIZIONE */
+.page-shutter {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  pointer-events: none;
+  z-index: 10000; /* sopra contenuti ma sotto cursor (9999 -> se vuoi che cursor resti sopra, usa 10001) */
+  mix-blend-mode: difference; /* stesso comportamento di contrasto del cursore */
+
+  /* STATO INIZIALE (Nascosto in alto) */
+  transform: translateY(-100%);
+  
+  /* LA MAGIA: 1s durata, curva ease-in-out */
+  transition: transform 1s ease-in-out;
+  
+  /* Ottimizzazione per evitare scatti (rendering su GPU) */
+  will-change: transform;
+  pointer-events: none; /* Lascia cliccare sotto quando è su */
+}
+
+
+/* override: quando aggiungo .down (discesa) uso una transizione più corta per essere più reattiva */
+.page-shutter.down {
+    transform: translateY(0%); /* Copre lo schermo */
+    pointer-events: all; /* Blocca i click mentre copre */
+    
+  transition: transform 1s ease-in-out;
+}
+
+/* classe reveal non strettamente necessaria (riferimento) */
+.page-shutter.reveal {
+  transform: translateY(-100%);
+}
+.Nav_text {
+    font-family: "Helvetica Now Display", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.5;                           /* 🔹 Opacità iniziale */
+    transition: opacity 0.3s ease, 
+                transform 0.3s ease;        /* 🔹 Aggiunta transizione per il movimento */
+    transform: scale(1);                    /* 🔹 Stato base */
+}
+
+.Nav_text:hover {
+    opacity: 1;                             /* 🔹 Opacità completa */
+    transform: scale(1.25);                 /* 🔹 Leggero ingrandimento */
+     filter: brightness(1.2);
+}
+
+
+#Actual_page {
+    opacity: 1;                       /* 🔹 Opacità al passaggio del mouse */
+    filter: brightness(1.2);
+}
+
+.Navigation{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: auto;
+    height: 100px;
+    padding-left: 63px;
+    padding-right: 54px;
+}
+.Nav_link {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 84px;
+}
+.Nav_text {
+    font-family: "Helvetica Now Display", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #ffffff;
+    text-decoration: none;
+}
+.info{
+     font-family: "roboto", sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+}
+.Insta{
+    height: 24px;
+    width: 27.93px;
+    background: url(insta.svg) no-repeat center;
+    background-size: contain;
+    filter: invert(100%) brightness(200%);
+}
+.Gmail{
+    height: 24px;
+    width: 27.93px;
+    background: url(gmail.svg) no-repeat center;
+    background-size: contain;
+    filter: invert(100%) brightness(200%);
+}
+.father_insta{
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+.father_gmail{
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 4px;
+}
+.Social{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+    height: fit-content;
+}
+.Progetti{
+    font-family: "roboto", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #ffffff;
+    margin-left: 54px;
+  
+}
+.container_box{
+    /* stato base: opacità al 50% */
+    opacity: 0.5;
+    transition: opacity 0.25s ease;
+    height: 180px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 54px;
+    border-top: #ffffff 1px solid;
+    position: relative;
+    z-index: 2;
+}
+
+/* assicura che anche i button che usano questa classe ereditino la stessa regola */
+button.container_box{
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    text-align: left;
+    outline: none;
+    cursor: none !important;
+    width: 100%;
+    height: 180px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 54px;
+    border-top: #ffffff 1px solid;
+    border-bottom: #ffffff 0.5px solid;
+}
+
+/* al passaggio del cursore torna opacità 100% */
+.container_box:hover,
+button.container_box:hover {
+    opacity: 1;
+    background-color: #1d1d1d;
+}
+.Container_logo{
+    width: 240px;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 28px;
+    align-items: center;
+}
+.logo_item{
+    height: 27.23px;
+    width: 35.82px;
+    background: url(mfp_logo.svg) no-repeat center;
+    background-size: contain;
+}
+.Title_logo{
+    font-family: "inter", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 27px;
+    color: #ffffff;
+    letter-spacing: 0%;
+}
+.Paragraph{
+    width: 660px;
+    font-family: "roboto", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    letter-spacing: 0%;
+    color: #ffffff;
+}
+.img_project{
+    width: 142.22222900390625px;
+    height: 80px;
+    background: url(mfp_image.png) no-repeat center;
+    background-size: contain;
+    border-radius: 8px;
+}
+.Type_project{
+    width: 160px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.Type_info{
+    font-family: "roboto", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1px;
+    letter-spacing: 0%;
+    color: #ffffff;
+    margin: 0;
+    width: fit-content;
+    height: fit-content;
+    padding: 12px 12px;
+    border: 1px solid #ffffff60;
+    border-radius: 32px;
+    white-space: nowrap;
+}
+#logo_sparkmind{
+    height: 30.907026290893555px;
+    width: 38.01081848144531px;
+    background: url(Brain\ Logo.svg) no-repeat center;
+    background-size: contain;
+}
+.font_img{
+    width: 100.86664581298828px;
+    height: 10.279419898986816px;
+    background: url(Sparkminds.svg) no-repeat center;
+    background-size: contain;
+}
+#none_image{
+    background: none;
+}
+#logo_verso{
+    height: 26.8px;
+    width: 27.67px;
+    background: url(verso.svg) no-repeat center;
+    background-size: contain;
+}
+.font_img_verso{
+    width: 184.11px;
+    height: 13.96px;
+    background: url(Verso_font.png) no-repeat center;
+
+    background-size: contain;
+}
+#verso_img{
+    background: url(verso_mockup.png) no-repeat center;
+    background-size: contain;
+}
+.space_page{
+    height: 100px;
+}
+.container_father_box{
+    display: flex;
+    flex-direction: column;
+}
+
+.home-icon {
+    width: 28px;
+    height: 28px;
+    background: url('home+identity_no_fill.svg') no-repeat center;
+    background-size: contain;
+}
+
+.work-icon {
+    width: 28px;
+    height: 28px;
+    background: url('work+identity_fill.svg') no-repeat center;
+    background-size: contain;
+}
+
+.contatti-icon {
+    width: 28px;
+    height: 28px;
+    background: url('Send_outline_no_fill.svg') no-repeat center;
+    background-size: contain;
+}
+
+.about-icon {
+    width: 28px;
+    height: 28px;
+    background: url('about+identity_no_fill.svg') no-repeat center;
+    background-size: contain;
+}
+
+.Nav_link a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+}
+
+.nav-label {
+    font-family: "Helvetica Now Display", sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 100%;
+    white-space: nowrap;
+}
+
+.Nav_link a:hover .nav-label {
+    opacity: 1;
+}
+.number{
+    white-space: nowrap;
+    font-family: "Helvetica Now Display", sans-serif;
+    font-weight: 700;
+    font-size: 88px;
+}
+.name_prject{
+    font-family: "Helvetica Now Display", sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: 28px;
+}
+.dot{
+    height: 8px;
+    width: 100%;
+    background-color: #ffffff;
+}
+/* =========================================
+   ANIMAZIONE PROGETTI (Scorrimento Verticale)
+   ========================================= */
+
+/* 1. Contenitore Principale */
+.project-wrapper {
+    position: relative;
+    height: 180px;
+    width: 100%;
+    overflow: hidden;
+    border-top: #ffffff 1px solid;
+    
+    /* CORREZIONE 1: Nascondiamo il cursore di sistema anche qui */
+    cursor: none; 
+    
+    /* CORREZIONE 2: Abbassiamo lo z-index. 
+       Deve essere inferiore a .page-shutter (10000) e .cursor (10001) */
+    z-index: 1; 
+}
+
+/* 2. Stile Card Iniziale ("01 MYFITNESSPALL") */
+.container_card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0 54px;
+    height: 100%;
+    width: 100%;
+    gap: 45px;
+    box-sizing: border-box;
+    
+    /* Tipografia */
+    color: #ffffff;
+    font-family: "Helvetica Now Display", sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+
+    /* ANIMAZIONE USCITA */
+    transition: transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 600ms ease;
+    transform: translateY(0);
+    opacity: 1;
+    
+    /* Assicuriamoci che non blocchi gli eventi del mouse */
+    pointer-events: none; 
+}
+
+/* Riabilitiamo gli eventi del mouse solo sul wrapper genitore per gestire l'hover */
+.project-wrapper:hover .container_card {
+    transform: translateY(-100%);
+    opacity: 0; 
+}
+
+/* Stili testi interni */
+.container_card .number {
+    font-weight: 400;
+}
+.container_card .name_prject {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* 3. Wrapper del Link (Card Dettagliata) */
+.link-wrapper {
+    display: block; /* Importante per rendere cliccabile l'area */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    z-index: 10;
+    cursor: none; /* Rinforziamo il cursore nascosto anche qui */
+    
+    /* STATO INIZIALE */
+    transform: translateY(100%);
+    opacity: 0;
+    
+    /* ANIMAZIONE ENTRATA */
+    transition: all 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Rimuoviamo il bordo interno */
+.project-wrapper .container_box {
+    border-top: none;
+    background-color: #000000;
+    cursor: none; /* Rinforziamo il cursore nascosto */
+}
+
+/* --- INTERAZIONE HOVER --- */
+
+/* Quando il mouse entra nel box: */
+.project-wrapper:hover .container_card {
+    transform: translateY(-100%);
+    opacity: 0; 
+}
+
+.project-wrapper:hover .link-wrapper {
+    transform: translateY(0);
+    opacity: 1;
+}
